@@ -2910,7 +2910,7 @@ function submitSurvey(){
   const payload = buildPayload(ref, duration);
 
   // ── POST to Google Apps Script web app ─────────────────────────────────
-  const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';  // ← paste your /exec URL here
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzoaxiPmE9BksdMhp3S8nq0I6Oafz_Zk7IZawaNTIMbmf1BFH7wdBa2EdzOs4vsQzXdTA/exec';  // ← paste your /exec URL here
   fetch(GAS_URL, {
     method:'POST',
     mode:'no-cors',
