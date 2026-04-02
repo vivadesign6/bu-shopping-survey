@@ -1167,6 +1167,11 @@
       webcam to take part in this study.
     </p>
     <div style="display:flex;flex-direction:column;gap:10px;">
+      <button onclick="closeMobileBlock()"
+        style="background:#8b2635;color:#fff;border:none;border-radius:8px;padding:13px 24px;font-family:inherit;font-size:0.95rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(139,38,53,0.3);">
+        Close
+      </button>
+    </div>
       <button onclick="closeMobileBlock(true)"
         style="background:#8b2635;color:#fff;border:none;border-radius:8px;padding:13px 24px;font-family:inherit;font-size:0.95rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(139,38,53,0.3);">
         Exit Survey
@@ -1176,9 +1181,7 @@
         Close
       </button>
     </div>
-  </div>
-</div>
-    
+      
   <!-- CALIBRATION DOT -->
 <div class="cal-dot" id="cal-dot"></div>
 <div class="cal-dot" id="mid-cal-dot" style="background:#1d4ed8;box-shadow:0 0 0 6px rgba(29,78,216,0.25);"></div>
@@ -2300,17 +2303,11 @@ function showSection(id){
 
 // ── CONSENT ──────────────────────────────────────────
   function closeMobileBlock(exit){
-  if(exit){
-    // Replace the entire page — no Back button can return to the survey
-    document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f7f5f2;font-family:\'Source Sans 3\',sans-serif;padding:24px;text-align:center;"><div style="max-width:380px;"><div style="font-size:3rem;margin-bottom:20px;">👋</div><h2 style="font-family:\'Lora\',serif;font-size:1.3rem;color:#1e1b18;margin-bottom:12px;">Thanks for your interest</h2><p style="color:#6b6560;line-height:1.7;font-size:0.95rem;">Please reopen the survey link on a <strong style="color:#1e1b18;">laptop or desktop</strong> using <strong style="color:#1e1b18;">Google Chrome</strong> with a working webcam.</p></div></div>';
-    try{ window.close(); }catch(e){}
-    return;
-  }
-  // "Close" — hide the card but lock the button permanently
+  function closeMobileBlock(){
   document.getElementById('mobileBlockOverlay').style.display='none';
   window._mobileBlocked=true;
 }
-function startSurvey(){
+  function startSurvey(){
     if(window.innerWidth<768 || window._mobileBlocked){
     document.getElementById('mobileBlockOverlay').style.display='flex';
     return;
