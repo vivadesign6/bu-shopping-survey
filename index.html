@@ -1155,6 +1155,22 @@
 </div>
 <!-- REWARD POP -->
 <div class="reward-pop" id="rewardPop">&#10003; <span id="rewardMsg">Section complete!</span></div>
+<!-- MOBILE BLOCK MODAL -->
+<div id="mobileBlockOverlay" style="display:none;position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#ffffff;border-radius:14px;padding:40px 28px 32px;max-width:400px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.22);">
+    <div style="font-size:2.8rem;margin-bottom:16px;">💻</div>
+    <h2 style="font-family:'Lora',serif;font-size:1.3rem;font-weight:600;color:#1e1b18;margin-bottom:12px;line-height:1.35;">Desktop &amp; Chrome Required</h2>
+    <p style="font-size:0.94rem;color:#6b6560;line-height:1.7;margin-bottom:28px;">
+      Please use <strong style="color:#1e1b18;">Google Chrome</strong> on a
+      <strong style="color:#1e1b18;">laptop or desktop</strong> with a working
+      webcam to take part in this study.
+    </p>
+    <button onclick="closeMobileBlock()"
+      style="background:#8b2635;color:#fff;border:none;border-radius:8px;padding:13px 32px;font-family:inherit;font-size:0.95rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(139,38,53,0.3);">
+      Close
+    </button>
+  </div>
+</div>
 <!-- CALIBRATION DOT -->
 <div class="cal-dot" id="cal-dot"></div>
 <div class="cal-dot" id="mid-cal-dot" style="background:#1d4ed8;box-shadow:0 0 0 6px rgba(29,78,216,0.25);"></div>
@@ -2275,7 +2291,15 @@ function showSection(id){
 }
 
 // ── CONSENT ──────────────────────────────────────────
+function closeMobileBlock(){
+  document.getElementById('mobileBlockOverlay').style.display='none';
+  window._mobileBlocked=true;
+}
 function startSurvey(){
+  if(window.innerWidth<768 || window._mobileBlocked){
+    document.getElementById('mobileBlockOverlay').style.display='flex';
+    return;
+  }
   const cb1=document.getElementById('consentCheck');
   const cb2=document.getElementById('dataConsentCheck');
   const cbNo=document.getElementById('noConsentCheck');
