@@ -2300,14 +2300,18 @@ function showSection(id){
 
 // ── CONSENT ──────────────────────────────────────────
   function closeMobileBlock(exit){
-  document.getElementById('mobileBlockOverlay').style.display='none';
   if(exit){
+    // Replace the entire page — no Back button can return to the survey
+    document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f7f5f2;font-family:\'Source Sans 3\',sans-serif;padding:24px;text-align:center;"><div style="max-width:380px;"><div style="font-size:3rem;margin-bottom:20px;">👋</div><h2 style="font-family:\'Lora\',serif;font-size:1.3rem;color:#1e1b18;margin-bottom:12px;">Thanks for your interest</h2><p style="color:#6b6560;line-height:1.7;font-size:0.95rem;">Please reopen the survey link on a <strong style="color:#1e1b18;">laptop or desktop</strong> using <strong style="color:#1e1b18;">Google Chrome</strong> with a working webcam.</p></div></div>';
     try{ window.close(); }catch(e){}
-    window.location.href='about:blank';
+    return;
   }
+  // "Close" — hide the card but lock the button permanently
+  document.getElementById('mobileBlockOverlay').style.display='none';
+  window._mobileBlocked=true;
 }
 function startSurvey(){
-    if(window.innerWidth<768){
+    if(window.innerWidth<768 || window._mobileBlocked){
     document.getElementById('mobileBlockOverlay').style.display='flex';
     return;
   }
