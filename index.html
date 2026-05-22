@@ -2982,15 +2982,12 @@ function buildPayload(ref, duration){
     const pid = p.id;
     const fixes = allFixations[pid] || [];
     const samples = (rawGaze[pid]||[]).length;
-    const totalDwell = fixes.reduce((s,f)=>s+f.duration,0);
-
-    // Proportional dwell per AOI
-    const aoiDwell={img:0,brand:0,desc:0,price:0,none:0};
-    fixes.forEach(f=>{if(aoiDwell[f.aoi]!==undefined)aoiDwell[f.aoi]+=f.duration;});
-    const dwellPropImg   = totalDwell>0 ? Math.round(aoiDwell.img  /totalDwell*100) : null;
-    const dwellPropBrand = totalDwell>0 ? Math.round(aoiDwell.brand/totalDwell*100) : null;
-    const dwellPropDesc  = totalDwell>0 ? Math.round(aoiDwell.desc /totalDwell*100) : null;
-    const dwellPropPrice = totalDwell>0 ? Math.round(aoiDwell.price/totalDwell*100) : null;
+    const totalDwell     = fixes.reduce((s,f) => s+f.duration, 0); // keep for threshold check
+    const namedDwell     = (aoiDwell.img||0) + (aoiDwell.brand||0) + (aoiDwell.desc||0) + (aoiDwell.price||0);
+    const dwellPropImg   = namedDwell>0 ? Math.round(aoiDwell.img  /namedDwell*100) : null;
+    const dwellPropBrand = namedDwell>0 ? Math.round(aoiDwell.brand/namedDwell*100) : null;
+    const dwellPropDesc  = namedDwell>0 ? Math.round(aoiDwell.desc /namedDwell*100) : null;
+    const dwellPropPrice = namedDwell>0 ? Math.round(aoiDwell.price/namedDwell*100) : null;
 
     // First fixation AOI (where gaze landed first)
     const firstFix = fixes.length>0 ? fixes[0] : null;
