@@ -3052,7 +3052,8 @@ function buildPayload(ref, duration){
 
   return {
     ref,
-    timestamp       : new Date().toISOString(),
+    timestamp_date  : (() => { const d = new Date(); return d.toLocaleDateString('en-GB'); })(),   // DD/MM/YYYY
+    timestamp_time  : (() => { const d = new Date(); return d.toTimeString().substring(0, 8); })(), // HH:MM:SS
     duration_sec    : duration,
     product_order   : pid_order,
 
